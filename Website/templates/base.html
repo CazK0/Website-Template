@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina | AI Productivity</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 transition-all">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">L</div>
+                <a href="/" class="text-xl font-bold tracking-tight">Lumina</a>
+            </div>
+            <div class="hidden md:flex space-x-8 font-medium text-slate-600">
+                <a href="/#features" class="hover:text-blue-600 transition">Features</a>
+                <a href="/pricing" class="hover:text-blue-600 transition">Pricing</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="#" class="hidden md:block font-medium text-slate-600 hover:text-blue-600">Log in</a>
+                <a href="#" class="bg-blue-600 text-white px-5 py-2.5 rounded-full font-medium hover:bg-blue-700 transition shadow-lg shadow-blue-200">Start Free Trial</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-24">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-12 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-8 mb-8 border-b border-slate-800 pb-8">
+            <div class="col-span-1 md:col-span-2">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-6 h-6 bg-blue-500 rounded flex items-center justify-center text-white font-bold text-xs">L</div>
+                    <span class="text-lg font-bold text-white tracking-tight">Lumina</span>
+                </div>
+                <p class="text-sm max-w-sm">Making work feel less like work through the power of artificial intelligence.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Product</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="/#features" class="hover:text-white transition">Features</a></li>
+                    <li><a href="/pricing" class="hover:text-white transition">Pricing</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Company</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-white transition">About Us</a></li>
+                    <li><a href="#" class="hover:text-white transition">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between text-sm">
+            <p>&copy; 2026 Lumina Inc. All rights reserved.</p>
+            <div class="space-x-4 mt-4 md:mt-0">
+                <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

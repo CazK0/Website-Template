@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 h-screen flex flex-col items-center justify-center p-6 font-sans text-center">
+
+    <div class="max-w-lg w-full">
+        {% set percentage = (score / total) * 100 %}
+
+        <div class="text-8xl mb-6">
+            {% if percentage == 100 %}🏆
+            {% elif percentage >= 50 %}👍
+            {% else %}💀{% endif %}
+        </div>
+
+        <h1 class="text-5xl font-extrabold mb-2">You scored {{ score }}/{{ total }}</h1>
+
+        <p class="text-xl text-slate-400 mb-10">
+            {% if percentage == 100 %}Flawless victory. You are a Python master.
+            {% elif percentage >= 50 %}Not bad! You know your way around PEP 8.
+            {% else %}Oof. Time to re-read the documentation. {% endif %}
+        </p>
+
+        <a href="/" class="inline-block bg-white text-slate-900 px-8 py-4 rounded-xl font-bold shadow-lg hover:bg-slate-200 transition">
+            Try Again
+        </a>
+    </div>
+
+</body>
+</html>

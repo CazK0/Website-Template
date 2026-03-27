@@ -1,32 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <title>Your Results</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-900 text-slate-100 h-screen flex flex-col items-center justify-center p-6 font-sans text-center">
-
-    <div class="max-w-lg w-full">
+<body class="bg-slate-900 text-slate-100 min-h-screen py-12 px-6 font-sans">
+    
+    <div class="max-w-3xl mx-auto w-full">
         {% set percentage = (score / total) * 100 %}
-
-        <div class="text-8xl mb-6">
-            {% if percentage == 100 %}🏆
-            {% elif percentage >= 50 %}👍
-            {% else %}💀{% endif %}
+        
+        <div class="text-center mb-16">
+            <div class="text-8xl mb-6">
+                {% if percentage == 100 %}🏆
+                {% elif percentage >= 50 %}👍
+                {% else %}💀{% endif %}
+            </div>
+            <h1 class="text-5xl font-extrabold mb-2">You scored {{ score }}/{{ total }}</h1>
+            <p class="text-xl text-slate-400 mb-8">
+                {% if percentage == 100 %}Flawless victory. You are a Python master.
+                {% elif percentage >= 50 %}Not bad! You know your way around PEP 8.
+                {% else %}Oof. Time to re-read the documentation. {% endif %}
+            </p>
+            <a href="/" class="inline-block bg-blue-600 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:bg-blue-500 transition">
+                Play Again
+            </a>
         </div>
 
-        <h1 class="text-5xl font-extrabold mb-2">You scored {{ score }}/{{ total }}</h1>
-
-        <p class="text-xl text-slate-400 mb-10">
-            {% if percentage == 100 %}Flawless victory. You are a Python master.
-            {% elif percentage >= 50 %}Not bad! You know your way around PEP 8.
-            {% else %}Oof. Time to re-read the documentation. {% endif %}
-        </p>
-
-        <a href="/" class="inline-block bg-white text-slate-900 px-8 py-4 rounded-xl font-bold shadow-lg hover:bg-slate-200 transition">
-            Try Again
-        </a>
+        <div class="space-y-6">
+            <h2 class="text-2xl font-bold text-slate-300 border-b border-slate-700 pb-2 mb-6">Review your answers:</h2>
+            
+            {% for i in range(total) %}
+                {% set q = questions[i] %}
+                {% set u_ans = user_answers[i] %}
+                {% set is_correct = (u_ans == q.answer) %}
+                
+                <div class="bg-slate-800 p-6 rounded-2xl border {{ 'border-green-500/50' if is_correct else 'border-red-500/50' }}">
+                    <h3 class="text-lg font-bold mb-4 whitespace-pre-wrap">{{ i + 1 }}. {{ q.text }}</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-4 mb-4 text-sm">
+                        <div class="bg-slate-900/50 p-3 rounded-lg">
+                            <span class="text-slate-400 block mb-1">Your Answer:</span>
+                            <span class="{{ 'text-green-400' if is_correct else 'text-red-400' }} font-semibold">{{ u_ans }}</span>
+                        </div>
+                        <div class="bg-slate-900/50 p-3 rounded-lg">
+                            <span class="text-slate-400 block mb-1">Correct Answer:</span>
+                            <span class="text-green-400 font-semibold">{{ q.answer }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-900/20 text-blue-200 p-4 rounded-lg text-sm border border-blue-800/50">
+                        <strong class="text-blue-400">Explanation:</strong> {{ q.explanation }}
+                    </div>
+                </div>
+            {% endendfor %}
+        </div>
+        
     </div>
 
 </body>

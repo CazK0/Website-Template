@@ -6,17 +6,22 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col items-center justify-center p-6 font-sans">
-
+    
     <div class="w-full max-w-2xl bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-        <div class="bg-slate-100 px-8 py-4 border-b border-slate-200 flex justify-between items-center text-sm font-bold text-slate-500">
+        
+        <div class="bg-slate-100 px-8 py-4 flex justify-between items-center text-sm font-bold text-slate-500">
             <span>Question {{ q_num }} of {{ total }}</span>
-            <span>🐍 Python Master Quiz</span>
+            <span class="text-red-500">⏱️ <span id="timeText">15</span>s remaining</span>
         </div>
-
+        
+        <div class="w-full bg-slate-200 h-1.5">
+            <div id="timeBar" class="bg-red-500 h-full w-full transition-all duration-1000 ease-linear"></div>
+        </div>
+        
         <div class="p-8">
             <h2 class="text-2xl font-bold mb-6 whitespace-pre-wrap">{{ question.text }}</h2>
-
-            <form method="POST" action="/quiz" class="space-y-4">
+            
+            <form id="quizForm" method="POST" action="/quiz" class="space-y-4">
                 {% for option in question.options %}
                 <label class="block cursor-pointer">
                     <input type="radio" name="answer" value="{{ option }}" required class="peer sr-only">
@@ -25,13 +30,37 @@
                     </div>
                 </label>
                 {% endfor %}
-
+                
                 <button type="submit" class="w-full mt-8 bg-slate-900 text-white py-4 rounded-xl font-bold text-lg hover:bg-slate-800 transition shadow-lg">
                     Submit Answer
                 </button>
             </form>
         </div>
     </div>
+    
+    <script>
+        let timeLeft = 15;
+        const timeText = document.getElementById('timeText');
+        const timeBar = document.getElementById('timeBar');
+        const form = document.getElementById('quizForm');
 
+        const timer = setInterval(() => {
+            timeLeft--;
+            timeText.innerText = timeLeft;
+            timeBar.style.width = (timeLeft / 15) * 100 + "%";
+
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                
+                const timeoutInput = document.createElement('input');
+                timeoutInput.type = 'hidden';
+                timeoutInput.name = 'answer';
+                timeoutInput.value = 'Out of Time';
+                form.appendChild(timeoutInput);
+                
+                form.submit();
+            }
+        }, 1000);
+    </script>
 </body>
 </html>
